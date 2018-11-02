@@ -1,15 +1,7 @@
-# webpack-fullseries-tool
-> 曰：“工欲善其事，必先利其器”，此项目专为前端工程师打造的webpack全系列开发，不局限于官网建设、后台管理系统、移动端开发（h5）。不局限于react、vue等框架
+# react-admin
+> 曰：“工欲善其事，必先利其器”
 ---
-# 一、项目分支介绍
-> 项目分支目前支持基础webpack项目建设（可扩展性），移动端开发，后台管理系统
-- ##### dev分支
-> 配置完善的webpack基建，可由用户在此基础上应用于其他框架项目
-- ##### mobile分支
-> 用于开发h5的利器，具备完善的手机适配方案，全面支持sass
-- ##### mobile-react分支
-> 用于团队组件化协同开发h5，react+swiper3+sass+3种手机适配方案（默认：vm、vh适配，flexible适配，hotcss适配）
-- ##### admin分支
+# 一、项目介绍
 > react+redux+antdesign+less开发大中型企业级后台管理系统
 ---
 # 二、项目使用教程
