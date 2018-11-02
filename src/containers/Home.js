@@ -8,6 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'styles/Home.less';
+import Example from 'containers/ExampleContainer';
 export class Home extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -23,7 +24,7 @@ export class Home extends React.Component { // eslint-disable-line react/prefer-
   render() {
     return (
       <div className="HomeComponent">
-
+        <Example></Example>
       </div>
     );
   }

@@ -16,7 +16,7 @@ class Test extends React.Component {
     
   }
   focus() {
-    alert();
+    // alert();
   }
   render(){
     return <input placeholder='hello'/>
@@ -33,7 +33,6 @@ class CompExampleContainer extends React.Component {
     this.test()
   }
   componentDidMount() {
-    console.log(this.inp);
     this.inp.focus()
   }
   test = ()=>{
@@ -73,6 +72,9 @@ function mapDispatchToProps(dispatch) {
     },
     loadData:()=>{
       dispatch(()=>{
+        console.log('====================================');
+        console.log(arguments);
+        console.log('====================================');
         return axios.get(config.staticlist).then(function (response) {
           
           dispatch({
