@@ -1,0 +1,64 @@
+/*
+ *
+ * {{properCase name }}
+ *
+ */
+
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+{{#if wantHeaders}}
+import Helmet from 'react-helmet';
+{{/if}}
+import 'styles/{{ properCase name }}.less';
+export class {{ properCase name }} extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  componentWillMount(){
+
+  }
+  componentDidMount(){
+
+  }
+  render() {
+    return (
+      <div className="{{ properCase name }}Component">
+      {{#if wantHeaders}}
+        <Helmet
+          title="{{properCase name}}"
+          meta={{curly true}}[
+            {{curly true}} name: 'description', content: 'Description of {{properCase name}}' {{curly}}
+          ]{{curly}}
+        />
+      {{/if}}
+
+      </div>
+    );
+  }
+}
+
+{{ properCase name }}.propTypes = {
+  //dispatch: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+    return {
+        //prop:state.property
+    };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    //someEvent:()=>{
+        //dispatch(action)
+    //}
+  };
+}
+
+{{#if wantActionsAndReducer}}
+export default connect(mapStateToProps, mapDispatchToProps)({{ properCase name }});
+{{else}}
+export default connect(mapStateToProps, mapDispatchToProps)({{ properCase name }});
+{{/if}}
