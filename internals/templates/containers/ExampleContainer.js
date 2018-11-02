@@ -39,7 +39,7 @@ class CompExampleContainer extends React.Component {
     console.log(1111)
   };
   render() {
-    const {count,data,IncreaseCount,loadData} = this.props;
+    const {count,data,IncreaseCount,loadData,count1} = this.props;
     return (
       <div>
         <Test ref={(inp)=>{
@@ -47,7 +47,7 @@ class CompExampleContainer extends React.Component {
         }}></Test>
         <Button type="primary">Primary</Button>
         <button onClick={IncreaseCount}>点我</button>
-        <h1>{count}</h1>
+        <h1>{count}----{count1}</h1>
         <button onClick={loadData}>加载数据</button>
         <h1>{JSON.stringify(data)}</h1>
       </div>
@@ -60,6 +60,7 @@ CompExampleContainer.propTypes = {};
 function mapStateToProps(state) {
   return {
     count:state.exampleReducer.count,
+    count1:state.ajaxReducer.count,
     data:state.ajaxReducer.data
   };
 }
@@ -67,7 +68,8 @@ function mapDispatchToProps(dispatch) {
   return {
     IncreaseCount:()=>{
       dispatch({
-        type: 'TEST'
+        type: 'TEST',
+        namespace:'ajaxReducer'
       })
     },
     loadData:()=>{

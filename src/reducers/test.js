@@ -1,5 +1,5 @@
-let defaultState = { namespace: '{{ name }}'};
-let {{ name }} = (state = defaultState, action) => {
+let defaultState = { namespace: 'test'};
+let test = (state = defaultState, action) => {
   const {  } = state;
   if (action.namespace && action.namespace != state.namespace) {
     return state;
@@ -11,4 +11,4 @@ let {{ name }} = (state = defaultState, action) => {
       return state;
   }
 };
-export default {{ name }};
+export default test;
