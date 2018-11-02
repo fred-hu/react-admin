@@ -7,6 +7,21 @@ import request from 'tools/request';
 import { Button } from 'antd';
 import axios from 'axios';
 import 'static/logo.png';
+class Test extends React.Component {
+  constructor(props){
+    super(props);
+    this.focus = this.focus.bind(this);
+  }
+  componentDidMount() {
+    
+  }
+  focus() {
+    // alert();
+  }
+  render(){
+    return <input placeholder='hello'/>
+  }
+}
 class CompExampleContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +32,9 @@ class CompExampleContainer extends React.Component {
   componentWillMount() {
     this.test()
   }
+  componentDidMount() {
+    this.inp.focus()
+  }
   test = ()=>{
     console.log(1111)
   };
@@ -24,6 +42,9 @@ class CompExampleContainer extends React.Component {
     const {count,data,IncreaseCount,loadData} = this.props;
     return (
       <div>
+        <Test ref={(inp)=>{
+          this.inp = inp;
+        }}></Test>
         <Button type="primary">Primary</Button>
         <button onClick={IncreaseCount}>点我</button>
         <h1>{count}</h1>
@@ -52,7 +73,6 @@ function mapDispatchToProps(dispatch) {
     loadData:()=>{
       dispatch(()=>{
         return axios.get(config.staticlist).then(function (response) {
-          
           dispatch({
             type:"AJAX",
             data:response.data

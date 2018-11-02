@@ -11,7 +11,8 @@ import {Menu, Icon, Switch, Layout} from 'antd';
 const {SubMenu} = Menu;
 const {Sider} = Layout;
 import 'styles/Navigation.less';
-import {shuffle} from 'tools/toolFunctions.js';
+import {deepCopy} from 'tools/toolFunctions.js';
+
 // console.log(shuffle([1, 2, 3, 4, 5, 6, 7]));
 export class Navigation extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -24,56 +25,62 @@ export class Navigation extends React.Component { // eslint-disable-line react/p
   }
 
   componentWillMount() {
+    let a = new Promise(function (resolve) {
+      setTimeout(() => {
+        resolve(4000)
+      }, 4000)
+    });
+    a.then(function (data) {
+      console.log(data)
+    }).catch(function (err) {
+      console.log(err)
+    });
 
-    let obj = {
-      "test":1,
-      "test2":2
-    };
-    console.log(Object.values(obj))
-    console.log(Object.entries(obj))
-    for(let [key,value] of Object.entries(obj)) {
-      console.log(`key: ${key} value: ${value}`);
+    async function test() {
+      console.log('start');
+      await new Promise(function (resolve) {
+        setTimeout(() => {
+          resolve()
+        }, 4000)
+      });
+      console.log('end');
+      return 'the test is done'
     }
-    let Car = {
-      name: 'BMW',
-      price: 1000000,
-      set discount(x) {
-        this.d = x;
-      },
-      get discount() {
-        return this.d;
-      },
-    };
-    console.log(Car);
-    Car.discount = 3;
-    console.log(Car);
+    test().then((d) => {
+      console.log(d)
+    });
   }
+
   componentDidMount() {
     const _this = this;
     window.onhashchange = function (e) {
       matchMenu(_this.props.menu)
     };
-    function matchMenu(data=[],parentId=[]) {
-      data.forEach((v,i)=>{
-        if (location.hash.replace('#','')===v.link){
+
+    function matchMenu(data = [], parentId = []) {
+      data.forEach((v, i) => {
+        if (location.hash.replace('#', '') === v.link) {
           // console.log(v);
           // console.log(parentId);
           _this.props.matchMenu({
-            defaultSelectedKeys:[v.id],
-            defaultOpenKeys:[...parentId]
+            defaultSelectedKeys: [v.id],
+            defaultOpenKeys: [...parentId]
           });
           return;
         }
-        v.children && v.children.length && matchMenu(v.children,parentId.concat(v.id+''))
+        v.children && v.children.length && matchMenu(v.children, parentId.concat(v.id + ''))
       })
     }
+
     matchMenu(this.props.menu)
   }
+
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
   };
+
   render() {
     function transMenu(data) {
       transMenu.navigation = data.map((v, i) => {
@@ -103,8 +110,9 @@ export class Navigation extends React.Component { // eslint-disable-line react/p
       });
       return transMenu.navigation;
     }
+
     const {collapsed} = this.state;
-    const {menu,defaultSelectedKeys,defaultOpenKeys} = this.props;
+    const {menu, defaultSelectedKeys, defaultOpenKeys} = this.props;
     return (
       <div className="NavigationComponent">
         <Sider
@@ -150,10 +158,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    matchMenu:(obj)=>{
+    matchMenu: (obj) => {
       dispatch({
-        type:'MENU',
-        data:obj
+        type: 'MENU',
+        data: obj
       })
     }
   };

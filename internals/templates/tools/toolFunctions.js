@@ -460,6 +460,8 @@ const validateNumber = n => !isNaN(parseFloat(n)) && isFinite(n) && Number(n) ==
 
 const valueOrDefault = (value, d) => value || d;
 // valueOrDefault(NaN, 30) -> 30
+
+const deepCopy = (object)=>Object.defineProperties({},Object.getOwnPropertyDescriptors(object));
 export {
   ArrayConcat,//Array concatenation (数组拼接)
   difference,//Array difference (数组比较)
@@ -553,4 +555,5 @@ export {
   validateEmail,//Validate email(邮箱验证)
   validateNumber,//Validate number (数字验证)
   valueOrDefault,//Value or default (值或者默认值)
+  deepCopy,//对象深拷贝
 }

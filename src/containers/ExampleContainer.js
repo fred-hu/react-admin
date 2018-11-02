@@ -72,11 +72,7 @@ function mapDispatchToProps(dispatch) {
     },
     loadData:()=>{
       dispatch(()=>{
-        console.log('====================================');
-        console.log(arguments);
-        console.log('====================================');
         return axios.get(config.staticlist).then(function (response) {
-          
           dispatch({
             type:"AJAX",
             data:response.data
