@@ -57,19 +57,6 @@ let config = {
         ]
       },
       {
-        test: /\.less$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader"
-        }, {
-          loader: "less-loader",
-          options: {
-            javascriptEnabled: true
-          }
-        }]
-      },
-      {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
@@ -150,6 +137,19 @@ if (process.env.NODE_ENV === 'development') {
         'postcss-loader'
       ]
     },
+    {
+      test: /\.less$/,
+      use: [{
+        loader: "style-loader"
+      }, {
+        loader: "css-loader"
+      }, {
+        loader: "less-loader",
+        options: {
+          javascriptEnabled: true
+        }
+      }]
+    },
   );
 } else {
   config.entry = {
@@ -206,17 +206,6 @@ if (process.env.NODE_ENV === 'development') {
           loader: 'postcss-loader'
         },
         'less-loader'
-      ]
-    },
-    {
-      test: /\.scss$/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        'css-loader',
-        {
-          loader: 'postcss-loader'
-        },
-        'sass-loader'
       ]
     }
   );
