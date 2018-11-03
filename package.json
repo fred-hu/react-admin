@@ -1,6 +1,6 @@
 {
   "name": "react-admin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "react开发后台管理系统",
   "private": true,
   "scripts": {
