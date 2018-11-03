@@ -197,6 +197,28 @@ if (process.env.NODE_ENV === 'development') {
         'postcss-loader'
       ]
     },
+    {
+      test: /\.less$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        {
+          loader: 'postcss-loader'
+        },
+        'less-loader'
+      ]
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        {
+          loader: 'postcss-loader'
+        },
+        'sass-loader'
+      ]
+    }
   );
 }
 process.env.NODE_ENV === 'analyze' && config.plugins.push(new BundleAnalyzerPlugin());
