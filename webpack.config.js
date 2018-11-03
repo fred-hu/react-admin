@@ -161,8 +161,8 @@ if (process.env.NODE_ENV === 'development') {
     new CleanWebpackPlugin(['dist']),
     new MinifyPlugin(),
     new MiniCssExtractPlugin({
-      filename: "css/[name][id].css",
-      chunkFilename: "css/[name][id].css"
+      filename: "css/[name].[id].css",
+      chunkFilename: "css/[name].[id].css"
     })
   );
   config.mode = 'production';
