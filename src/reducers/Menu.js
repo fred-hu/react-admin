@@ -5,27 +5,27 @@ let defaultState = {
       linkName: '导航1',
       link: '/one',
       id: '1',
-      icon: null,
+      icon: 'picture',
       children: []
     },
     {
       linkName: '导航2',
       link: '/two',
       id: '2',
-      icon: null,
+      icon: 'folder-open',
       children: [
         {
           linkName: '导航21',
           link: '/two/one',
           id: '2-1',
-          icon: null,
+          icon: 'book',
           children: []
         },
         {
           linkName: '导航22',
           link: '/two/two',
           id: '2-2',
-          icon: null,
+          icon: 'team',
           children: []
         }
       ]
@@ -34,19 +34,19 @@ let defaultState = {
       linkName: '导航3',
       link: '/three',
       id: '3',
-      icon: null,
+      icon: 'phone',
       children: [
         {
           linkName: '导航31',
           link: '/three/one',
           id: '3-1',
-          icon: null,
+          icon: 'dashboard',
           children: [
             {
               linkName: '导航311',
               link: '/three/one/one',
               id: '3-1-1',
-              icon: null,
+              icon: 'windows',
               children: []
             }
           ]
@@ -55,7 +55,7 @@ let defaultState = {
           linkName: '导航32',
           link: '/three/two',
           id: '3-2',
-          icon: null,
+          icon: 'security-scan',
           children: []
         }
       ]
@@ -64,7 +64,7 @@ let defaultState = {
       linkName: '导航4',
       link: '/four',
       id: '4',
-      icon: null,
+      icon: 'coffee',
       children: []
     }
   ],
