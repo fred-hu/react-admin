@@ -22,9 +22,14 @@ let instance = axios.create({
   params: {
     version: 1
   },
-  paramsSerializer: function(params) {
+   // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
+   transformResponse: [function (data) {
+    // 对 data 进行任意转换处理
+    return data;
+  }],
+  // paramsSerializer: function(params) {
 
-  },
+  // },
 
   // options are 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
   responseType: 'json', // default

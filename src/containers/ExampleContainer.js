@@ -14,7 +14,8 @@ import {
   Icon,
   Input,
   Checkbox,
-  message
+  message,
+  Popconfirm
 } from 'antd';
 const FormItem = Form.Item;
 import 'styles/ExampleContainer.less';
@@ -61,19 +62,28 @@ class CompExampleContainer extends React.Component {
           width: 200,
           render: (text, record) => (
             <span>
-              <a href="javascript:;">编辑</a>
-              <Divider type="vertical" />
               <a
                 href="javascript:;"
-                onClick={this.delete.bind(this, record['_id'])}
+                onClick={this.getDetail.bind(this, record['_id'])}
               >
-                删除
+                编辑
               </a>
+              <Divider type="vertical" />
+              <Popconfirm
+                title="确认删除?"
+                onConfirm={this.delete.bind(this, record['_id'])}
+                onCancel={() => {}}
+                okText="确认"
+                cancelText="取消"
+              >
+                <a href="javascript:;">删除</a>
+              </Popconfirm>
             </span>
           )
         }
       ],
-      datas: []
+      datas: [],
+      detail: {}
     };
   }
   componentWillMount() {
@@ -84,13 +94,14 @@ class CompExampleContainer extends React.Component {
     // this.inp.focus();
   }
   test = () => {
-    console.log(1111);
+    // console.log(1111);
   };
   ajaxList() {
     let _this = this;
     request
       .get('/curd/list')
       .then(function(response) {
+        console.log(response);
         response.data.data.forEach(v => {
           v.key = v['_id'];
         });
@@ -99,31 +110,78 @@ class CompExampleContainer extends React.Component {
         });
       })
       .catch(function(err) {
-        console.log(err);
+        // console.log(err);
+      });
+  }
+  getDetail(id) {
+    let _this = this;
+    request
+      .get('/curd/list/detail', {
+        params: {
+          id
+        }
+      })
+      .then(function(response) {
+        _this.setState(
+          {
+            detail: response.data.data,
+            visible: true
+          },
+          () => {
+            let { name, url } = _this.state.detail;
+            _this.props.form.setFieldsValue({
+              name,
+              url
+            });
+          }
+        );
+      })
+      .catch(function(err) {
+        // console.log(err);
       });
   }
   handleOk() {
     let _this = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values);
-        request
-          .post('/curd/add', values)
-          .then(function(response) {
-            _this.ajaxList();
-            console.log(response);
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-        this.setState(
-          {
-            visible: false
-          },
-          () => {
-            this.props.form.resetFields();
-          }
-        );
+        if (_this.state.detail['_id']) {
+          values['id'] = _this.state.detail['_id'];
+          request
+            .post('/curd/update', values)
+            .then(function(response) {
+              message.success(response.data.description);
+              _this.ajaxList();
+            })
+            .catch(function(err) {
+              // console.log(err);
+            });
+          this.setState(
+            {
+              visible: false
+            },
+            () => {
+              this.props.form.resetFields();
+            }
+          );
+        } else {
+          request
+            .post('/curd/add', values)
+            .then(function(response) {
+              message.success(response.data.description);
+              _this.ajaxList();
+            })
+            .catch(function(err) {
+              // console.log(err);
+            });
+          this.setState(
+            {
+              visible: false
+            },
+            () => {
+              this.props.form.resetFields();
+            }
+          );
+        }
       }
     });
   }
@@ -139,7 +197,8 @@ class CompExampleContainer extends React.Component {
   }
   ajaxAdd() {
     this.setState({
-      visible: true
+      visible: true,
+      detail: {}
     });
   }
   delete(id) {
@@ -155,7 +214,7 @@ class CompExampleContainer extends React.Component {
         }
       })
       .catch(function(err) {
-        console.log(err);
+        // console.log(err);
       });
   }
   render() {
@@ -250,7 +309,7 @@ function mapDispatchToProps(dispatch) {
             });
           })
           .catch(function(err) {
-            console.log(err);
+            // console.log(err);
           });
       });
     }

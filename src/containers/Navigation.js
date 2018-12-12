@@ -37,23 +37,23 @@ export class Navigation extends React.Component {
       }, 4000);
     });
     a.then(function(data) {
-      console.log(data);
+      // console.log(data);
     }).catch(function(err) {
       console.log(err);
     });
 
     async function test() {
-      console.log('start');
+      // console.log('start');
       await new Promise(function(resolve) {
         setTimeout(() => {
           resolve();
         }, 4000);
       });
-      console.log('end');
+      // console.log('end');
       return 'the test is done';
     }
     test().then(d => {
-      console.log(d);
+      // console.log(d);
     });
   }
 
@@ -91,7 +91,7 @@ export class Navigation extends React.Component {
   render() {
     function transMenu(data) {
       transMenu.navigation = data.map((v, i) => {
-        console.log(v.icon);
+        // console.log(v.icon);
         if (v.children && v.children.length) {
           return (
             <SubMenu
