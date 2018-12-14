@@ -37,6 +37,11 @@ class CompExampleContainer extends React.Component {
     super(props);
     this.state = {
       visible: false,
+      page:{
+        pageSize:10,
+        currentPage:1,
+        total:0
+      },
       columns: [
         {
           title: 'id',
@@ -98,15 +103,24 @@ class CompExampleContainer extends React.Component {
   };
   ajaxList() {
     let _this = this;
+    let {pageSize,currentPage} = this.state.page;
     request
-      .get('/curd/list')
+      .get('/curd/list',{params:{
+        pageSize,
+        currentPage
+      }})
       .then(function(response) {
-        console.log(response);
-        response.data.data.forEach(v => {
+        let data = response.data;
+        data.data.forEach(v => {
           v.key = v['_id'];
         });
         _this.setState({
-          datas: response.data.data
+          datas: data.data,
+          page:{
+            pageSize:data.pageSize,
+            currentPage:data.currentPage,
+            total:data.total
+          }
         });
       })
       .catch(function(err) {
@@ -217,6 +231,13 @@ class CompExampleContainer extends React.Component {
         // console.log(err);
       });
   }
+  pageChange(page){
+    this.setState((state,props)=>{
+      return state.page.currentPage = page.current
+    },function(){
+      this.ajaxList()
+    })
+  }
   render() {
     const { count, data, IncreaseCount, loadData, count1 } = this.props;
     let { columns, datas } = this.state;
@@ -254,7 +275,10 @@ class CompExampleContainer extends React.Component {
             </Button>
           </div>
           <div className="lists">
-            <Table columns={columns} dataSource={datas} />
+            <Table onChange={this.pageChange.bind(this)} columns={columns} dataSource={datas} pagination={{
+              total:+this.state.page.total,
+              current:+this.state.page.currentPage,
+            }}/>
           </div>
         </div>
         <Modal
@@ -262,6 +286,7 @@ class CompExampleContainer extends React.Component {
           visible={this.state.visible}
           onOk={this.handleOk.bind(this)}
           onCancel={this.handleCancel.bind(this)}
+          
         >
           <Form className="first-form">
             <FormItem {...formItemLayout} label="name">
