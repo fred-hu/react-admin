@@ -39,7 +39,7 @@ class CompExampleContainer extends React.Component {
       visible: false,
       page:{
         pageSize:10,
-        currentPage:1,
+        current:1,
         total:0
       },
       columns: [
@@ -103,11 +103,11 @@ class CompExampleContainer extends React.Component {
   };
   ajaxList() {
     let _this = this;
-    let {pageSize,currentPage} = this.state.page;
+    let {pageSize,current} = this.state.page;
     request
       .get('/curd/list',{params:{
         pageSize,
-        currentPage
+        current
       }})
       .then(function(response) {
         let data = response.data;
@@ -118,7 +118,7 @@ class CompExampleContainer extends React.Component {
           datas: data.data,
           page:{
             pageSize:data.pageSize,
-            currentPage:data.currentPage,
+            current:data.current,
             total:data.total
           }
         });
@@ -233,7 +233,7 @@ class CompExampleContainer extends React.Component {
   }
   pageChange(page){
     this.setState((state,props)=>{
-      return state.page.currentPage = page.current
+      return state.page.current = page.current
     },function(){
       this.ajaxList()
     })
@@ -277,7 +277,7 @@ class CompExampleContainer extends React.Component {
           <div className="lists">
             <Table onChange={this.pageChange.bind(this)} columns={columns} dataSource={datas} pagination={{
               total:+this.state.page.total,
-              current:+this.state.page.currentPage,
+              current:+this.state.page.current,
             }}/>
           </div>
         </div>
