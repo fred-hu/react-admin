@@ -123,7 +123,7 @@ class CompExampleContainer extends React.Component {
             // })
             var callback = 'test';
             window[callback] = function(d){
-                window[callback] = null;
+                delete window[callback];
                 alert(d);
             }
             var script = document.createElement('script');
