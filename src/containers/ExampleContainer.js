@@ -115,13 +115,23 @@ class CompExampleContainer extends React.Component {
         //     if (fn) fn(null, data);// 自定义回调函数
         // };
         document.addEventListener('click',function(){
-            jsonp(config.host+'/curd/jsonp',{
-                param:'callback',
-                name:'test'
-            },function(error,data){
-                console.log(data);
-            })
+            // jsonp(config.host+'/curd/jsonp',{
+            //     param:'callback',
+            //     name:'test'
+            // },function(error,data){
+            //     console.log(data);
+            // })
+            var callback = 'test';
+            window[callback] = function(d){
+                window[callback] = null;
+                alert(d);
+            }
+            var script = document.createElement('script');
+            script.src = config.host+'/curd/jsonp?callback='+callback;
+            document.documentElement.appendChild(script);
         },false)
+
+
         
     }
     test = () => {
