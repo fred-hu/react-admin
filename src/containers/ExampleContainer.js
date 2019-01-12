@@ -5,7 +5,9 @@ import config from 'tools/config';
 import request from 'tools/request';
 import { Button } from 'antd';
 import axios from 'axios';
-import 'static/logo.png';
+import img from 'static/logo.png';
+console.log(img);
+import jsonp from 'jsonp';
 import {
     Table,
     Divider,
@@ -103,6 +105,24 @@ class CompExampleContainer extends React.Component {
     }
     componentDidMount() {
         // this.inp.focus();
+
+
+        // jsonp源码
+        // var id = opts.name || (prefix + (count++));
+        // window[id] = function(data){  //重写挂载在全局上的回调函数（防止被更改）
+        //     debug('jsonp got', data);
+        //     cleanup();// 执行回调函数后消除挂载在全局上的回调函数（防止被暴露）
+        //     if (fn) fn(null, data);// 自定义回调函数
+        // };
+        document.addEventListener('click',function(){
+            jsonp(config.host+'/curd/jsonp',{
+                param:'callback',
+                name:'test'
+            },function(error,data){
+                console.log(data);
+            })
+        },false)
+        
     }
     test = () => {
         // console.log(1111);
