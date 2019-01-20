@@ -6,7 +6,11 @@ import request from 'tools/request';
 import { Button } from 'antd';
 import axios from 'axios';
 import img from 'static/logo.png';
-console.log(img);
+// console.log(img);
+import Toolbar from 'components/Toolbar';
+import ThemeContext from 'contexts/test';
+
+
 import jsonp from 'jsonp';
 import {
     Table,
@@ -106,7 +110,6 @@ class CompExampleContainer extends React.Component {
     componentDidMount() {
         // this.inp.focus();
 
-
         // jsonp源码
         // var id = opts.name || (prefix + (count++));
         // window[id] = function(data){  //重写挂载在全局上的回调函数（防止被更改）
@@ -114,25 +117,26 @@ class CompExampleContainer extends React.Component {
         //     cleanup();// 执行回调函数后消除挂载在全局上的回调函数（防止被暴露）
         //     if (fn) fn(null, data);// 自定义回调函数
         // };
-        document.addEventListener('click',function(){
-            // jsonp(config.host+'/curd/jsonp',{
-            //     param:'callback',
-            //     name:'test'
-            // },function(error,data){
-            //     console.log(data);
-            // })
-            var callback = 'test';
-            window[callback] = function(d){
-                delete window[callback];
-                alert(d);
-            }
-            var script = document.createElement('script');
-            script.src = config.host+'/curd/jsonp?callback='+callback;
-            document.documentElement.appendChild(script);
-        },false)
-
-
-        
+        document.addEventListener(
+            'click',
+            function() {
+                // jsonp(config.host+'/curd/jsonp',{
+                //     param:'callback',
+                //     name:'test'
+                // },function(error,data){
+                //     console.log(data);
+                // })
+                var callback = 'test';
+                window[callback] = function(d) {
+                    delete window[callback];
+                    alert(d);
+                };
+                var script = document.createElement('script');
+                script.src = config.host + '/curd/jsonp?callback=' + callback;
+                document.documentElement.appendChild(script);
+            },
+            false
+        );
     }
     test = () => {
         // console.log(1111);
@@ -309,6 +313,9 @@ class CompExampleContainer extends React.Component {
         </h1>
         <button onClick={loadData}>加载数据</button>
         <h1>{JSON.stringify(data)}</h1> */}
+                <ThemeContext.Provider value="dark">
+                    <Toolbar />
+                </ThemeContext.Provider>
                 <div style={{ marginTop: '20px' }}>
                     <div className="btns">
                         <Button
