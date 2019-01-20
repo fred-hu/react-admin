@@ -10,7 +10,6 @@ import img from 'static/logo.png';
 import Toolbar from 'components/Toolbar';
 import ThemeContext from 'contexts/test';
 
-
 import jsonp from 'jsonp';
 import {
     Table,
@@ -48,6 +47,7 @@ class CompExampleContainer extends React.Component {
                 current: 1,
                 total: 0
             },
+            testCtx:1,
             columns: [
                 {
                     title: 'id',
@@ -100,7 +100,12 @@ class CompExampleContainer extends React.Component {
                 }
             ],
             datas: [],
-            detail: {}
+            detail: {},
+            changeCtx:()=>{
+                this.setState({
+                    'testCtx':2
+                })
+            }
         };
     }
     componentWillMount() {
@@ -313,7 +318,7 @@ class CompExampleContainer extends React.Component {
         </h1>
         <button onClick={loadData}>加载数据</button>
         <h1>{JSON.stringify(data)}</h1> */}
-                <ThemeContext.Provider value="dark">
+                <ThemeContext.Provider value={this.state}>
                     <Toolbar />
                 </ThemeContext.Provider>
                 <div style={{ marginTop: '20px' }}>
