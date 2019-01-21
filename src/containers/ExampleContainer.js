@@ -124,7 +124,7 @@ class CompExampleContainer extends React.Component {
             var callback = 'test';
             window[callback] = function(d){
                 delete window[callback];
-                alert(d);
+                // alert(d);
             }
             var script = document.createElement('script');
             script.src = config.host+'/curd/jsonp?callback='+callback;
