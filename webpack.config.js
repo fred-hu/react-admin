@@ -39,6 +39,7 @@ let config = {
       components:path.resolve(__dirname, './src/components'),
       containers:path.resolve(__dirname, './src/containers'),
       reducers:path.resolve(__dirname, './src/reducers'),
+      contexts:path.resolve(__dirname, './src/contexts'),
     },
     extensions: ['.js', '.json', '.tsx', '.ts', 'jsx']
   },
