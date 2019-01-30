@@ -9,6 +9,7 @@ import img from 'static/logo.png';
 // console.log(img);
 import Toolbar from 'components/Toolbar';
 import ThemeContext from 'contexts/test';
+import Ref from 'components/ref';
 
 import jsonp from 'jsonp';
 import {
@@ -107,12 +108,15 @@ class CompExampleContainer extends React.Component {
                 })
             }
         };
+        // ref用例
+        this.myRef = React.createRef();
     }
     componentWillMount() {
         this.test();
         this.ajaxList();
     }
     componentDidMount() {
+        console.log(this.myRef)
         // this.inp.focus();
 
         // jsonp源码
@@ -320,6 +324,9 @@ class CompExampleContainer extends React.Component {
                 <ThemeContext.Provider value={this.state}>
                     <Toolbar />
                 </ThemeContext.Provider>
+                <Ref ref={this.myRef}>
+                    222
+                </Ref>
                 <div style={{ marginTop: '20px' }}>
                     <div className="btns">
                         <Button

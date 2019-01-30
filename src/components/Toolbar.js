@@ -7,7 +7,7 @@ export default class Toolbar extends Component {
         super(props);
     }
     componentDidMount = () => {
-        console.log('---', this.context);
+        // console.log('---', this.context);
     };
 
     render() {
