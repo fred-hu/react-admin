@@ -1,5 +1,6 @@
 language: node_js
-node_js: stable
+node_js: 
+- "8"
 
 cache:
   directories:
@@ -17,10 +18,11 @@ install:
 script:
 - npm run dist
 after_script:
-- git init
-- git config user.name "hufei1993"
-- git config user.email "hufei_yx@sina.com"
-- git add docs
-- git commit -m "Update blog via travis"
-- git push -f -q "https://${GH_TOKEN}@${GH_REF}" master:master
+# - cd docs
+# - git init
+# - git config user.name "hufei1993"
+# - git config user.email "hufei_yx@sina.com"
+- git add --all
+- git commit -m "Update docs via travis"
+- git push "https://${GH_TOKEN}@${GH_REF}" master:master
 # build lifecycle end
