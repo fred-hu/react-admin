@@ -1,21 +1,26 @@
+language: node_js
+node_js: stable
+
+cache:
+  directories:
+  - node_modules
 env:
   global:
     - GH_REF: github.com/hufei1993/react-admin.git
     - secure: "bh76K2O2vqk8np/LEYW8dsnslv0pZYJiM/gILHIRWINI3PG/yFDE1on8A2tMrs45heYmsXRdwkVoDXBB7UKIgvf8eUsJ74Ph0RFe2b9Xz53Ut9bZETqrP1AEn9OeTHERkT3AQDR7oqUNEJDAXkixPp76l1+D92KiBRmA8Uop7ca0pRghGrJk4OzHv4fDqgX6QcFIAuHWQcZU7N76qCPhN0CboGLiQaW6DiUE3xPom8IkkrZQe7NTIpb5jMlc/emulurNnaTaP0VfQpzqbV92u/5HShPhgMlGSeLuL6qvDWgSvJGe4g0uyXOLTwhEVFWm56QcSMAIto/E4bfrtMMq3Y9QpFKG45KIniHVjw/P6OvwbY8OzeRZvhQpmvzVCXpT/slJaC/Rh6WaTrJEyedZ++Vsgbg+PLnYauiZUVY0iTUCuC+iLMix/w/1Skf58FDEsX8NDuf8ShRsJ8sLkgR9Vzs+pylbz/BVuN3gizRfScmszahKoQb744Zj/vwe4rPkQiMR1DYhl5JgT3xnljRZ/HIvRa13DsWftiZFKxQrdjR8DCRxhtsQV1L7bCHQFjwc1DYMUbuyeQk77okX+HP+8X7WOCwQAfa8uXJpR2bjjRMMJZQ8JEp4Gzpqss9F8Nr4l+COmOJxLbVqAAyWFqej0BfVfBOK/cJzKUyp8HvgD5o="
 # build lifecycle start
 before_install:
-- npm i -g webpack
-- npm i -g webpack-cli
+- npm -v
+- npm -v
 install:
 - npm i
 script:
 - npm run dist
 after_script:
-- cd docs
 - git init
 - git config user.name "hufei1993"
 - git config user.email "hufei_yx@sina.com"
-- git add --all
+- git add docs
 - git commit -m "Update blog via travis"
 - git push -f -q "https://${GH_TOKEN}@${GH_REF}" master:master
 # build lifecycle end
