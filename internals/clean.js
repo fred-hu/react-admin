@@ -8,9 +8,9 @@ if (!which('git')) {
     exit(1);
 }
 process.stdout.write('开始清理...');
-// 清理src和dist/
+// 清理src和docs/
 rm('-rf', 'src/*');
-rm('-rf', 'dist');
+rm('-rf', 'docs');
 cp('-rf', 'internals/templates/*', 'src');
 addCheckMark();
 echo('\n清理完毕，祝您开心使用!!!');

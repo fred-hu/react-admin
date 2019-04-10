@@ -159,7 +159,7 @@ if (process.env.NODE_ENV === 'development') {
     ]
   };
   config.plugins = config.plugins.concat(
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['docs']),
     new MinifyPlugin(),
     new MiniCssExtractPlugin({
       filename: "css/[name].[id].css",
@@ -171,7 +171,7 @@ if (process.env.NODE_ENV === 'development') {
     filename: 'js/[name].[hash].js',
     chunkFilename: 'js/[name].[hash].js',
     hashDigestLength: 10,
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'docs'),
     publicPath: "",//相对于HTML页面解析的输出目录的url
   };
   config.optimization = {
