@@ -1,6 +1,0 @@
-.NavigationComponent{display:inline-block}.NavigationComponent .ant-layout-sider{background:#fff}.NavigationComponent #collapse{width:100%;text-align:center;display:inline-block;border-right:1px solid #e8e8e8;border-bottom:1px solid #eee;padding:10px 0}
-.TopBarComponent{height:64px;line-height:64px;width:100%;min-width:960px;border-bottom:2px solid #1890ff}
-
-
-.ExampleContainer .btns:after{display:inline-block;content:"";clear:both}.ExampleContainer .btns button{float:right}.ExampleContainer .lists{margin-top:30px}
-body,html{width:100%;min-width:1200px}body,body #app,body #app #app-container,html,html #app,html #app #app-container{height:100%}body #app #app-container #app-main,html #app #app-container #app-main{height:100%;min-height:650px}body #app #app-container #app-main #app-main-slider,html #app #app-container #app-main #app-main-slider{height:100%}body .hide,html .hide{display:none}
