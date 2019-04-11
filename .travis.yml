@@ -18,7 +18,7 @@ install:
 script:
 - npm run dist
 after_script:
-# - cd docs
+- cd docs
 - git init
 - git config user.name "hufei1993"
 - git config user.email "hufei_yx@sina.com"
