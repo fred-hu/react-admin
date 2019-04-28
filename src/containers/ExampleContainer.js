@@ -133,7 +133,7 @@ class CompExampleContainer extends React.Component {
             // },function(error,data){
             //     console.log(data);
             // })
-            var callback = 'test';
+            var callback = 'jsonp' + +new Date();
             window[callback] = function(d){
                 console.log('jsonp-------->',d);
                 delete window[callback];
