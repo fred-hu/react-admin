@@ -132,10 +132,16 @@ if (process.env.NODE_ENV === 'development') {
         {
           loader: 'css-loader',
           options: {
-            modules: false
+            modules: false,
+            importLoaders: 1
           }
         },
-        'postcss-loader'
+        {
+          loader:'postcss-loader',
+          options: {
+            modules: false
+          }
+        }
       ]
     },
     {
@@ -192,10 +198,16 @@ if (process.env.NODE_ENV === 'development') {
         {
           loader: 'css-loader',
           options: {
-            modules: false
+            modules: false,
+            importLoaders: 1
           }
         },
-        'postcss-loader'
+        {
+          loader:'postcss-loader',
+          options: {
+            modules: false
+          }
+        }
       ]
     },
     {
@@ -203,9 +215,6 @@ if (process.env.NODE_ENV === 'development') {
       use: [
         MiniCssExtractPlugin.loader,
         'css-loader',
-        {
-          loader: 'postcss-loader'
-        },
         'less-loader'
       ]
     }
