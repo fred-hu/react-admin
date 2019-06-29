@@ -1,4 +1,2 @@
->1% in CN
-android >= 4.4
-ios >= 8
-not ie <= 11
+>0.5% in CN
+last 2 versions

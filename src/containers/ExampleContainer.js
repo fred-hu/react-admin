@@ -116,7 +116,7 @@ class CompExampleContainer extends React.Component {
         this.ajaxList();
     }
     componentDidMount() {
-        console.log(this.myRef)
+        // console.log(this.myRef)
         // this.inp.focus();
 
         // jsonp源码
