@@ -41,6 +41,7 @@ let config = {
   ],
   resolve: {
     alias: {
+      'react-dom': '@hot-loader/react-dom',
       static: path.resolve(__dirname, './src/static'),
       tools: path.resolve(__dirname, './src/tools'),
       styles: path.resolve(__dirname, './src/styles'),
@@ -61,11 +62,11 @@ let config = {
       {
         test: /\.js|jsx$/,
         exclude: /node_modules/,
-        use: ['babel-loader','astroturf/loader']
+        use: ['babel-loader']
       },
       {
         test: /\.tsx?$/,
-        use: ['ts-loader','astroturf/loader'],
+        use: ['ts-loader'],
         exclude: /node_modules/
       },
       {

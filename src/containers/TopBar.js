@@ -8,23 +8,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'styles/TopBar.less';
-import { css } from 'astroturf';
-const margin = 10;
-const height = 50;
-const bottom = height + margin;
-
-const styles = css`
-  .box {
-    height: ${height}px;
-    margin-bottom: ${margin}px;
-  }
-
-  .footer {
-    position: absolute;
-    top: ${bottom}px;
-  }
-`;
-console.log('----',styles);
 export class TopBar extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -33,7 +16,7 @@ export class TopBar extends React.Component {
       string: ''
     };
   }
-  componentWillMount() {}
+  componentWillMount() { }
   componentDidMount() {
     let data = [
       {

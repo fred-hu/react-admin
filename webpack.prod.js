@@ -75,11 +75,11 @@ let config = {
       {
         test: /\.js|jsx$/,
         exclude: /node_modules/,
-        use: ['babel-loader','astroturf/loader']
+        use: ['babel-loader']
       },
       {
         test: /\.tsx?$/,
-        use: ['ts-loader','astroturf/loader'],
+        use: ['ts-loader'],
         exclude: /node_modules/
       },
       {
