@@ -90,7 +90,7 @@ function mapDispatchToProps(dispatch) {
         //}
     };
 }
-export default hot(module)(
+export default hot(process.env.NODE_ENV==='development'?module:null)(
     connect(
         mapStateToProps,
         mapDispatchToProps
