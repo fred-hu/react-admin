@@ -41,6 +41,21 @@ export class Navigation extends React.Component {
     }).catch(function(err) {
       console.log(err);
     });
+    require.ensure(
+      [],
+      function(require) {
+        let bundle = require('../test');
+        console.log(bundle);
+      },
+      'bundle222'
+    );
+    import('lodash')
+      .then(module => {
+        console(module.default);
+      })
+      .catch(err => {
+        console(err.message);
+      });
 
     async function test() {
       // console.log('start');
@@ -124,14 +139,13 @@ export class Navigation extends React.Component {
     const { menu, defaultSelectedKeys, defaultOpenKeys } = this.props;
     return (
       <div className="NavigationComponent">
-        
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-        <a onClick={this.toggle} id="collapse">
-          <Icon
-            type={!collapsed ? 'double-left' : 'double-right'}
-            theme="outlined"
-          />
-        </a>
+          <a onClick={this.toggle} id="collapse">
+            <Icon
+              type={!collapsed ? 'double-left' : 'double-right'}
+              theme="outlined"
+            />
+          </a>
           <Menu
             key={`${defaultSelectedKeys}-${defaultOpenKeys}`}
             defaultSelectedKeys={defaultSelectedKeys}
@@ -141,7 +155,6 @@ export class Navigation extends React.Component {
           >
             {transMenu(menu)}
           </Menu>
-         
         </Sider>
       </div>
     );
