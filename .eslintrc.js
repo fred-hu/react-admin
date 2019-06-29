@@ -35,5 +35,7 @@ module.exports = {
   "rules": {
     "comma-dangle": ["error", "never"], // 要求或禁止末尾逗号：不允许逗号
     "indent": ["error", 2], // JavaScript代码强制使用一致的缩进：4格缩进
+    "import/no-named-as-default": 0,
+    "react/jsx-filename-extension": 0
   }
 };

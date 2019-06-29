@@ -6,8 +6,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import 'styles/TopBar.less';
+// import PropTypes from 'prop-types';
+import '../styles/TopBar.less';
 
 export class TopBar extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
@@ -64,7 +64,8 @@ export class TopBar extends React.Component {
   }
 
   render() {
-    return <div className="TopBarComponent">{this.state.string}</div>;
+    const { string } = this.state;
+    return <div className="TopBarComponent">{string}</div>;
   }
 }
 
@@ -72,12 +73,12 @@ TopBar.propTypes = {
   // dispatch: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
     // prop:state.property
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps() {
   return {
     // someEvent:()=>{
     // dispatch(action)

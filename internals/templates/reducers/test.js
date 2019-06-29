@@ -1,7 +1,7 @@
 let defaultState = { namespace: 'test'};
 let test = (state = defaultState, action) => {
   const {  } = state;
-  if (action.namespace && action.namespace != state.namespace) {
+  if (action.namespace && action.namespace !== state.namespace) {
     return state;
   }
   switch (action.type) {

@@ -72,7 +72,7 @@ let defaultState = {
   defaultOpenKeys: ['1']
 };
 let menuReducer = (state = defaultState, action) => {
-  if (action.namespace && action.namespace != state.namespace) {
+  if (action.namespace && action.namespace !== state.namespace) {
     return state;
   }
   switch (action.type) {

@@ -8,15 +8,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   HashRouter as Router,
-  Route,
-  Link,
-  withRouter
+  Link
 } from 'react-router-dom';
 import {
-  Menu, Icon, Switch, Layout
+  Menu, Icon, Layout
 } from 'antd';
-import 'styles/Navigation.less';
-import { deepCopy } from 'tools/toolFunctions.js';
+import '../styles/Navigation.less';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -39,26 +36,26 @@ export class Navigation extends React.Component {
         resolve(4000);
       }, 4000);
     }));
-    a.then((data) => {
+    a.then(() => {
       // console.log(data);
     }).catch((err) => {
       window.console.log(err);
     });
-    require.ensure(
-      [],
-      (require) => {
-        const bundle = require('../test');
-        // console.log(bundle);
-      },
-      'bundle222'
-    );
-    import('lodash')
-      .then((module) => {
-        // console(module.default);
-      })
-      .catch((err) => {
-        console(err.message);
-      });
+    // require.ensure(
+    //   [],
+    //   (require) => {
+    //     const bundle = require('../test');
+    //     window.console.log(bundle);
+    //   },
+    //   'bundle222'
+    // );
+    // import('lodash')
+    //   .then((module) => {
+    //     window.console(module.default);
+    //   })
+    //   .catch((err) => {
+    //     console(err.message);
+    //   });
 
     async function test() {
       // console.log('start');
@@ -70,35 +67,32 @@ export class Navigation extends React.Component {
       // console.log('end');
       return 'the test is done';
     }
-    test().then((d) => {
+    test().then(() => {
       // console.log(d);
     });
   }
 
   componentDidMount() {
-    const _this = this;
-    window.onhashchange = function (e) {
-      matchMenu(_this.props.menu);
-    };
-
+    const that = this;
+    const { menu } = this.props;
     function matchMenu(data = [], parentId = []) {
-      data.forEach((v, i) => {
-        if (location.hash.replace('#', '') === v.link) {
+      data.forEach((v) => {
+        if (window.location.hash.replace('#', '') === v.link) {
           // console.log(v);
           // console.log(parentId);
-          _this.props.matchMenu({
+          that.props.matchMenu({
             defaultSelectedKeys: [v.id],
             defaultOpenKeys: [...parentId]
           });
           return;
         }
-        v.children
-          && v.children.length
-          && matchMenu(v.children, parentId.concat(`${v.id}`));
+        if (v.childre && v.children.length) {
+          matchMenu(v.children, parentId.concat(`${v.id}`));
+        }
       });
     }
-
-    matchMenu(this.props.menu);
+    window.onhashchange = () => matchMenu(that.props.menu);
+    matchMenu(menu);
   }
 
   toggle = () => {

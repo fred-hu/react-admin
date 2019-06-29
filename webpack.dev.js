@@ -1,10 +1,11 @@
+/* eslint-disable */
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-window.console.log('NODE_ENV: ', process.env.NODE_ENV);
+console.log('NODE_ENV: ', process.env.NODE_ENV);
 let config = {
   entry: {
     index: [hotMiddlewareScript, './src/index']
@@ -64,7 +65,7 @@ let config = {
         exclude: /node_modules/,
         use: ['babel-loader', {
           loader: 'eslint-loader',
-          options: { fix: true }
+          options: { fix: false }
         }]
       },
       {

@@ -1,7 +1,7 @@
 let defaultState = {namespace:'exampleReducer',count:0};
 let exampleReducer = (state = defaultState, action) => {
   const {count} = state;
-  if(action.namespace && action.namespace != state.namespace){
+  if(action.namespace && action.namespace !== state.namespace){
     return state;
   }
   switch (action.type) {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const ArrayConcat = (arr, ...args) => [].concat(arr, ...args);
 // ArrayConcat([1], [1, 2, 3, [4]]) -> [1, 2, 3, [4]]
 

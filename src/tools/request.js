@@ -33,9 +33,9 @@ const instance = axios.create({
 
   // options are 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
   responseType: 'json', // default
-  onUploadProgress(progressEvent) {},
+  onUploadProgress() {},
 
-  onDownloadProgress(progressEvent) {},
+  onDownloadProgress() {},
   validateStatus(status) {
     window.console.log('status', status);
     switch (status) {

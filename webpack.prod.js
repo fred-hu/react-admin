@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -144,7 +145,7 @@ let config = {
     ]
   }
 };
-
-process.env.NODE_ENV === 'analyze' &&
+if (process.env.NODE_ENV === 'analyze') {
   config.plugins.push(new BundleAnalyzerPlugin());
+}
 module.exports = config;

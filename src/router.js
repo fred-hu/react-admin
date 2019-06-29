@@ -1,17 +1,16 @@
+// eslint-disable-next-line
 import { hot } from 'react-hot-loader';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
   HashRouter as Router,
   Route,
-  Link,
-  withRouter,
   Switch,
   Redirect
 } from 'react-router-dom';
-import { Breadcrumb } from 'antd';
-import AppBreadcrumb from 'containers/AppBreadcrumb';
-import Home from 'containers/Home';
+
+import AppBreadcrumb from './containers/AppBreadcrumb';
+import Home from './containers/Home';
 import TopBar from './containers/TopBar';
 import Navigation from './containers/Navigation';
 
@@ -24,15 +23,19 @@ export class AppRouter extends React.Component {
   componentWillMount() {}
 
     trans = (data = [], obj = {}) => {
-      data.forEach((v, i) => {
+      data.forEach((v) => {
+        /* eslint no-param-reassign: ["error", { "props": false }] */
         obj[v.link] = v.linkName;
-        v.children && v.children.length && this.trans(v.children, obj);
+        if (v.children && v.children.length) {
+          this.trans(v.children, obj);
+        }
       });
       return obj;
     };
 
     render() {
-      const breadcrumbNameMap = this.trans(this.props.menu) || {};
+      const { menu } = this.props;
+      const breadcrumbNameMap = this.trans(menu) || {};
 
       return (
         <Router>
@@ -80,7 +83,7 @@ function mapStateToProps(state) {
     menu: state.menuReducer.menu
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps() {
   return {
     // someEvent:()=>{
     // dispatch(action)
