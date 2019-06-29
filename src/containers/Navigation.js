@@ -51,7 +51,7 @@ export class Navigation extends React.Component {
     );
     import('lodash')
       .then(module => {
-        console(module.default);
+        // console(module.default);
       })
       .catch(err => {
         console(err.message);

@@ -80,12 +80,6 @@ let config = {
               modules: false,
               importLoaders: 1
             }
-          },
-          {
-            loader:'postcss-loader',
-            options: {
-              modules: false
-            }
           }
         ]
       },
