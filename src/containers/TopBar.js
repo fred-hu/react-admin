@@ -8,6 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'styles/TopBar.less';
+
 export class TopBar extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -16,9 +17,11 @@ export class TopBar extends React.Component {
       string: ''
     };
   }
+
   componentWillMount() { }
+
   componentDidMount() {
-    let data = [
+    const data = [
       {
         label: 'h1',
         content: '内容1',
@@ -43,15 +46,14 @@ export class TopBar extends React.Component {
     let string = '';
     function trans(data) {
       data.forEach((v, i) => {
-        string =
-          string +
-          '<' +
-          v.label +
-          '>' +
-          (v.children ? v.content + trans(v.children) : v.content) +
-          '</' +
-          v.label +
-          '>';
+        string = `${string
+        }<${
+          v.label
+        }>${
+          v.children ? v.content + trans(v.children) : v.content
+        }</${
+          v.label
+        }>`;
       });
       return string;
     }
@@ -60,25 +62,26 @@ export class TopBar extends React.Component {
       string
     });
   }
+
   render() {
     return <div className="TopBarComponent">{this.state.string}</div>;
   }
 }
 
 TopBar.propTypes = {
-  //dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    //prop:state.property
+    // prop:state.property
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    //someEvent:()=>{
-    //dispatch(action)
-    //}
+    // someEvent:()=>{
+    // dispatch(action)
+    // }
   };
 }
 

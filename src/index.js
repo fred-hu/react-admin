@@ -10,18 +10,19 @@ import Router from './router';
 import './styles/App.less';
 import './styles/index.css';
 import './styles/test.scss';
+
 let composeEnhancers;
-if(process.env.NODE_ENV=='development'){
+if (process.env.NODE_ENV == 'development') {
   composeEnhancers = composeWithDevTools({
     // Specify name here, actionsBlacklist, actionsCreators and other options if needed
   });
-}else{
+} else {
   composeEnhancers = logOnlyInProduction.composeWithDevTools({
     // Specify name here, actionsBlacklist, actionsCreators and other options if needed
   });
 }
 
-let store = createStore(
+const store = createStore(
   reducers,
   composeEnhancers(
     applyMiddleware(thunk)

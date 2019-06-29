@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-console.log('NODE_ENV: ', process.env.NODE_ENV);
+window.console.log('NODE_ENV: ', process.env.NODE_ENV);
 let config = {
   entry: {
     index: [hotMiddlewareScript, './src/index']
@@ -62,7 +62,10 @@ let config = {
       {
         test: /\.js|jsx$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader', {
+          loader: 'eslint-loader',
+          options: { fix: true }
+        }]
       },
       {
         test: /\.tsx?$/,

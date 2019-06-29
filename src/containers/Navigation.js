@@ -12,11 +12,14 @@ import {
   Link,
   withRouter
 } from 'react-router-dom';
-import { Menu, Icon, Switch, Layout } from 'antd';
-const { SubMenu } = Menu;
-const { Sider } = Layout;
+import {
+  Menu, Icon, Switch, Layout
+} from 'antd';
 import 'styles/Navigation.less';
 import { deepCopy } from 'tools/toolFunctions.js';
+
+const { SubMenu } = Menu;
+const { Sider } = Layout;
 
 // console.log(shuffle([1, 2, 3, 4, 5, 6, 7]));
 export class Navigation extends React.Component {
@@ -24,57 +27,57 @@ export class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'inline', //vertical
-      theme: 'light', //dark
+      mode: 'inline', // vertical
+      theme: 'light', // dark
       collapsed: false
     };
   }
 
   componentWillMount() {
-    let a = new Promise(function(resolve) {
+    const a = new Promise(((resolve) => {
       setTimeout(() => {
         resolve(4000);
       }, 4000);
-    });
-    a.then(function(data) {
+    }));
+    a.then((data) => {
       // console.log(data);
-    }).catch(function(err) {
-      console.log(err);
+    }).catch((err) => {
+      window.console.log(err);
     });
     require.ensure(
       [],
-      function(require) {
-        let bundle = require('../test');
+      (require) => {
+        const bundle = require('../test');
         // console.log(bundle);
       },
       'bundle222'
     );
     import('lodash')
-      .then(module => {
+      .then((module) => {
         // console(module.default);
       })
-      .catch(err => {
+      .catch((err) => {
         console(err.message);
       });
 
     async function test() {
       // console.log('start');
-      await new Promise(function(resolve) {
+      await new Promise(((resolve) => {
         setTimeout(() => {
           resolve();
         }, 4000);
-      });
+      }));
       // console.log('end');
       return 'the test is done';
     }
-    test().then(d => {
+    test().then((d) => {
       // console.log(d);
     });
   }
 
   componentDidMount() {
     const _this = this;
-    window.onhashchange = function(e) {
+    window.onhashchange = function (e) {
       matchMenu(_this.props.menu);
     };
 
@@ -89,9 +92,9 @@ export class Navigation extends React.Component {
           });
           return;
         }
-        v.children &&
-          v.children.length &&
-          matchMenu(v.children, parentId.concat(v.id + ''));
+        v.children
+          && v.children.length
+          && matchMenu(v.children, parentId.concat(`${v.id}`));
       });
     }
 
@@ -103,6 +106,7 @@ export class Navigation extends React.Component {
       collapsed: !this.state.collapsed
     });
   };
+
   render() {
     function transMenu(data) {
       transMenu.navigation = data.map((v, i) => {
@@ -111,26 +115,25 @@ export class Navigation extends React.Component {
           return (
             <SubMenu
               key={v.id}
-              title={
+              title={(
                 <span>
                   <Icon type={v.icon} />
                   <span>{v.linkName}</span>
                 </span>
-              }
+              )}
             >
               {transMenu(v.children)}
             </SubMenu>
           );
-        } else {
-          return (
-            <Menu.Item key={v.id}>
-              <Link to={v.link}>
-                <Icon type={v.icon} />
-                <span>{v.linkName}</span>
-              </Link>
-            </Menu.Item>
-          );
         }
+        return (
+          <Menu.Item key={v.id}>
+            <Link to={v.link}>
+              <Icon type={v.icon} />
+              <span>{v.linkName}</span>
+            </Link>
+          </Menu.Item>
+        );
       });
       return transMenu.navigation;
     }
@@ -162,7 +165,7 @@ export class Navigation extends React.Component {
 }
 
 Navigation.propTypes = {
-  //dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -175,7 +178,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    matchMenu: obj => {
+    matchMenu: (obj) => {
       dispatch({
         type: 'MENU',
         data: obj

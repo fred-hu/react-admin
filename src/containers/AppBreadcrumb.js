@@ -7,10 +7,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { HashRouter as Router, Route, Switch, Link, withRouter } from 'react-router-dom';
+import {
+  HashRouter as Router, Route, Switch, Link, withRouter
+} from 'react-router-dom';
 import { Breadcrumb, Alert } from 'antd';
 import 'styles/AppBreadcrumb.less';
-import {Navigation} from "containers/Navigation";
+import { Navigation } from 'containers/Navigation';
+
 const AppBreadcrumb = withRouter((props) => {
   const { location } = props;
   const pathSnippets = location.pathname.split('/').filter(i => i);
@@ -26,10 +29,10 @@ const AppBreadcrumb = withRouter((props) => {
   });
   const breadcrumbItems = [
     (
-    <Breadcrumb.Item key="home">
-      <Link to="/">首页</Link>
-    </Breadcrumb.Item>
-  )
+      <Breadcrumb.Item key="home">
+        <Link to="/">首页</Link>
+      </Breadcrumb.Item>
+    )
   ].concat(extraBreadcrumbItems);
   return (
     <div className="AppBreadcrumb">

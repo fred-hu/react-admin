@@ -9,41 +9,45 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'styles/Home.less';
 import Example from 'containers/ExampleContainer';
+
 export class Home extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-  componentWillMount(){
+
+  componentWillMount() {
 
   }
-  componentDidMount(){
+
+  componentDidMount() {
 
   }
+
   render() {
     return (
       <div className="HomeComponent">
-        <Example></Example>
+        <Example />
       </div>
     );
   }
 }
 
 Home.propTypes = {
-  //dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-    return {
-        //prop:state.property
-    };
+  return {
+    // prop:state.property
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    //someEvent:()=>{
-        //dispatch(action)
-    //}
+    // someEvent:()=>{
+    // dispatch(action)
+    // }
   };
 }
 
