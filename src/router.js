@@ -40,17 +40,11 @@ export class AppRouter extends React.Component {
                     <div id="app-main">
                         <div
                             id="app-main-slider"
-                            style={{ display: 'inline-block' }}
                         >
                             <Navigation />
                         </div>
                         <div
                             id="app-main-content"
-                            style={{
-                                display: 'inline-block',
-                                verticalAlign: 'top',
-                                padding: 20
-                            }}
                         >
                             <AppBreadcrumb
                                 breadcrumbNameMap={breadcrumbNameMap}

@@ -79,7 +79,7 @@ let config = {
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: ['ts-loader'],
         exclude: /node_modules/
       },
       {
@@ -89,19 +89,19 @@ let config = {
           {
             loader: 'css-loader',
             options: {
-              modules: false,
               importLoaders: 1
             }
           },
+          { loader: 'postcss-loader' }
         ]
       },
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader',{ loader: 'postcss-loader' }, 'less-loader']
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader',{ loader: 'postcss-loader' }, 'sass-loader']
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

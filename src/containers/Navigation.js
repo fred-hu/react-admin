@@ -45,7 +45,7 @@ export class Navigation extends React.Component {
       [],
       function(require) {
         let bundle = require('../test');
-        console.log(bundle);
+        // console.log(bundle);
       },
       'bundle222'
     );
