@@ -82,7 +82,7 @@ export class Navigation extends React.Component {
     };
 
     function matchMenu(data = [], parentId = []) {
-      data.forEach((v, i) => {
+      data.forEach((v, _i) => {
         if (location.hash.replace('#', '') === v.link) {
           // console.log(v);
           // console.log(parentId);

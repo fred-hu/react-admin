@@ -44,8 +44,8 @@ export class TopBar extends React.Component {
       }
     ];
     let string = '';
-    function trans(data) {
-      data.forEach((v, i) => {
+    function trans(d) {
+      d.forEach((v, _i) => {
         string = `${string
         }<${
           v.label

@@ -8,13 +8,21 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import AppBreadcrumb from './containers/AppBreadcrumb';
 import Home from './containers/Home';
 import TopBar from './containers/TopBar';
 import Navigation from './containers/Navigation';
 
 export class AppRouter extends React.Component {
+  static propTypes = {
+    menu: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]))
+  }
+
+  static defaultProps = {
+    menu: []
+  }
+
   constructor(props) {
     super(props);
     this.state = {};

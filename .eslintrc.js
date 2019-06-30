@@ -36,6 +36,12 @@ module.exports = {
     "comma-dangle": ["error", "never"], // 要求或禁止末尾逗号：不允许逗号
     "indent": ["error", 2], // JavaScript代码强制使用一致的缩进：4格缩进
     "import/no-named-as-default": 0,
-    "react/jsx-filename-extension": 0
+    "react/jsx-filename-extension": 0,
+    "no-trailing-spaces": 0,
+    "no-unused-vars": 'off',
+    "no-unused-vars": ["error", { 
+      "argsIgnorePattern": "^_",
+      "caughtErrors": "none"
+     }]
   }
 };

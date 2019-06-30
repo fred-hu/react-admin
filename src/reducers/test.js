@@ -1,6 +1,6 @@
 const defaultState = { namespace: 'test' };
 const test = (state = defaultState, action) => {
-  const { } = state;
+  // const { _conut } = state;
   if (action.namespace && action.namespace !== state.namespace) {
     return state;
   }
