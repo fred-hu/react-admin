@@ -1,157 +1,165 @@
-/*
- *
- * Navigation
- *
- */
-
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  HashRouter as Router,
-  Route,
-  Link,
-  withRouter
+  // HashRouter as Router,
+  // Route,
+  Link
+  // withRouter
 } from 'react-router-dom';
-import { Menu, Icon, Switch, Layout } from 'antd';
+import {
+  Menu, Icon, Layout
+} from 'antd';
+import PropTypes from 'prop-types';
+import '../styles/Navigation.less';
+// import { deepCopy } from 'tools/toolFunctions.js';
+
 const { SubMenu } = Menu;
 const { Sider } = Layout;
-import 'styles/Navigation.less';
-import { deepCopy } from 'tools/toolFunctions.js';
 
 // console.log(shuffle([1, 2, 3, 4, 5, 6, 7]));
 export class Navigation extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    menu: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])),
+    defaultSelectedKeys: PropTypes.oneOfType([PropTypes.any]),
+    defaultOpenKeys: PropTypes.oneOfType([PropTypes.any])
+  }
+
+  static defaultProps = {
+    menu: [],
+    defaultSelectedKeys: null,
+    defaultOpenKeys: null
+  }
+  
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'inline', //vertical
-      theme: 'light', //dark
+      mode: 'inline', // vertical
+      theme: 'light', // dark
       collapsed: false
     };
   }
 
   componentWillMount() {
-    let a = new Promise(function(resolve) {
+    const a = new Promise(((resolve) => {
       setTimeout(() => {
         resolve(4000);
       }, 4000);
-    });
-    a.then(function(data) {
+    }));
+    a.then((_data) => {
       // console.log(data);
-    }).catch(function(err) {
-      console.log(err);
+    }).catch((err) => {
+      window.console.log(err);
     });
     require.ensure(
       [],
-      function(require) {
-        let bundle = require('../test');
-        // console.log(bundle);
+      (require) => {
+        const bundle = require('../test.ts');
+        window.console.log(bundle);
       },
       'bundle222'
     );
     import('lodash')
-      .then(module => {
+      .then((_module) => {
         // console(module.default);
       })
-      .catch(err => {
+      .catch((err) => {
         console(err.message);
       });
 
     async function test() {
       // console.log('start');
-      await new Promise(function(resolve) {
+      await new Promise(((resolve) => {
         setTimeout(() => {
           resolve();
         }, 4000);
-      });
+      }));
       // console.log('end');
       return 'the test is done';
     }
-    test().then(d => {
+    test().then((_d) => {
       // console.log(d);
     });
   }
 
   componentDidMount() {
-    const _this = this;
-    window.onhashchange = function(e) {
-      matchMenu(_this.props.menu);
-    };
-
+    const that = this;
+    const { menu } = this.props;
     function matchMenu(data = [], parentId = []) {
-      data.forEach((v, i) => {
-        if (location.hash.replace('#', '') === v.link) {
+      data.forEach((v, _i) => {
+        if (window.location.hash.replace('#', '') === v.link) {
           // console.log(v);
           // console.log(parentId);
-          _this.props.matchMenu({
+          that.props.matchMenu({
             defaultSelectedKeys: [v.id],
             defaultOpenKeys: [...parentId]
           });
           return;
         }
-        v.children &&
-          v.children.length &&
-          matchMenu(v.children, parentId.concat(v.id + ''));
+        if (v.children && v.children.length) {
+          matchMenu(v.children, parentId.concat(`${v.id}`));
+        }
       });
     }
-
-    matchMenu(this.props.menu);
+    window.onhashchange = () => {
+      matchMenu(menu);
+    };
+    matchMenu(menu);
   }
 
   toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
+    this.setState((prevState, _props) => ({
+      collapsed: !prevState.collapsed
+    }));
   };
+
   render() {
     function transMenu(data) {
-      transMenu.navigation = data.map((v, i) => {
+      transMenu.navigation = data.map((v, _i) => {
         // console.log(v.icon);
         if (v.children && v.children.length) {
           return (
             <SubMenu
               key={v.id}
-              title={
+              title={(
                 <span>
                   <Icon type={v.icon} />
                   <span>{v.linkName}</span>
                 </span>
-              }
+              )}
             >
               {transMenu(v.children)}
             </SubMenu>
           );
-        } else {
-          return (
-            <Menu.Item key={v.id}>
-              <Link to={v.link}>
-                <Icon type={v.icon} />
-                <span>{v.linkName}</span>
-              </Link>
-            </Menu.Item>
-          );
         }
+        return (
+          <Menu.Item key={v.id}>
+            <Link to={v.link}>
+              <Icon type={v.icon} />
+              <span>{v.linkName}</span>
+            </Link>
+          </Menu.Item>
+        );
       });
       return transMenu.navigation;
     }
 
-    const { collapsed } = this.state;
+    const { mode, theme, collapsed } = this.state;
     const { menu, defaultSelectedKeys, defaultOpenKeys } = this.props;
     return (
       <div className="NavigationComponent">
-        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-          <a onClick={this.toggle} id="collapse">
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+          <button type="button" onClick={this.toggle} id="collapse">
             <Icon
               type={!collapsed ? 'double-left' : 'double-right'}
               theme="outlined"
             />
-          </a>
+          </button>
           <Menu
             key={`${defaultSelectedKeys}-${defaultOpenKeys}`}
             defaultSelectedKeys={defaultSelectedKeys}
             defaultOpenKeys={defaultOpenKeys}
-            mode={this.state.mode}
-            theme={this.state.theme}
+            mode={mode}
+            theme={theme}
           >
             {transMenu(menu)}
           </Menu>
@@ -162,7 +170,7 @@ export class Navigation extends React.Component {
 }
 
 Navigation.propTypes = {
-  //dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -175,7 +183,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    matchMenu: obj => {
+    matchMenu: (obj) => {
       dispatch({
         type: 'MENU',
         data: obj

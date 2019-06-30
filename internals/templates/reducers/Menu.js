@@ -1,4 +1,4 @@
-let defaultState = {
+const defaultState = {
   namespace: 'menuReducer',
   menu: [
     {
@@ -71,15 +71,15 @@ let defaultState = {
   defaultSelectedKeys: ['1'],
   defaultOpenKeys: ['1']
 };
-let menuReducer = (state = defaultState, action) => {
+const menuReducer = (state = defaultState, action) => {
   if (action.namespace && action.namespace !== state.namespace) {
     return state;
   }
   switch (action.type) {
-    case 'MENU':
-      return Object.assign({}, state, action.data);
-    default:
-      return state;
+  case 'MENU':
+    return Object.assign({}, state, action.data);
+  default:
+    return state;
   }
 };
 export default menuReducer;
