@@ -56,13 +56,14 @@ let config = {
   cache: true,
   resolve: {
     alias: {
-      static: path.resolve(__dirname, './src/static'),
-      tools: path.resolve(__dirname, './src/tools'),
-      styles: path.resolve(__dirname, './src/styles'),
-      components: path.resolve(__dirname, './src/components'),
-      containers: path.resolve(__dirname, './src/containers'),
-      reducers: path.resolve(__dirname, './src/reducers'),
-      contexts: path.resolve(__dirname, './src/contexts')
+      'static': path.resolve(__dirname, './src/static'),
+      '@': './src',
+      'tools': path.resolve(__dirname, './src/tools'),
+      'styles': path.resolve(__dirname, './src/styles'),
+      'components': path.resolve(__dirname, './src/components'),
+      'containers': path.resolve(__dirname, './src/containers'),
+      'reducers': path.resolve(__dirname, './src/reducers'),
+      'contexts': path.resolve(__dirname, './src/contexts')
     },
     extensions: ['.js', '.json', '.tsx', '.ts', 'jsx']
   },
