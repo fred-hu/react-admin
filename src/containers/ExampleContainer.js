@@ -1,30 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import config from 'tools/config';
-import request from 'tools/request';
+// import jsonp from 'jsonp';
+import config from '../tools/config';
+import request from '../tools/request';
 import {
   Button,
   Table,
   Divider,
   Form,
   Modal,
-  Icon,
+  // Icon,
   Input,
-  Checkbox,
+  // Checkbox,
   message,
   Popconfirm
 } from 'antd';
 import axios from 'axios';
-import img from 'static/logo.png';
+// import img from 'static/logo.png';
 // console.log(img);
-import Toolbar from 'components/Toolbar';
-import ThemeContext from 'contexts/test';
-import Ref from 'components/ref';
+import Toolbar from '../components/Toolbar';
+import ThemeContext from '../contexts/test';
+import Ref from '../components/ref';
 
-import jsonp from 'jsonp';
-
-import 'styles/ExampleContainer.less';
+import '../styles/ExampleContainer.less';
 
 const FormItem = Form.Item;
 // class Test extends React.Component {
@@ -41,6 +40,24 @@ const FormItem = Form.Item;
 //   }
 // }
 class CompExampleContainer extends React.Component {
+  static propTypes = {
+    form: PropTypes.oneOfType([PropTypes.any]),
+    count: PropTypes.oneOfType([PropTypes.any]),
+    data: PropTypes.oneOfType([PropTypes.any]),
+    IncreaseCount: PropTypes.oneOfType([PropTypes.any]),
+    loadData: PropTypes.oneOfType([PropTypes.any]),
+    count1: PropTypes.oneOfType([PropTypes.any])
+  }
+
+  static defaultProps = {
+    form: null,
+    count: null,
+    data: null,
+    IncreaseCount: null,
+    loadData: null,
+    count1: null
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +67,7 @@ class CompExampleContainer extends React.Component {
         current: 1,
         total: 0
       },
-      testCtx: 1,
+      // testCtx: 1,
       columns: [
         {
           title: 'id',
@@ -74,35 +91,38 @@ class CompExampleContainer extends React.Component {
           title: '操作',
           key: 'operation',
           width: 200,
-          render: (text, record) => (
-            <span>
-              <a
-                href="javascript:;"
-                onClick={this.getDetail.bind(this, record._id)}
-              >
-                编辑
-              </a>
-              <Divider type="vertical" />
-              <Popconfirm
-                title="确认删除?"
-                onConfirm={this.delete.bind(this, record._id)}
-                onCancel={() => {}}
-                okText="确认"
-                cancelText="取消"
-              >
-                <a href="javascript:;">删除</a>
-              </Popconfirm>
-            </span>
-          )
+          render: (text, record) => {
+            const funDelete = this.delete.bind(this);
+            return (
+              <span>
+                <button 
+                  type="button"
+                  onClick={this.getDetail.bind(this, record._id)}
+                >
+                  编辑
+                </button>
+                <Divider type="vertical" />
+                <Popconfirm
+                  title="确认删除?"
+                  onConfirm={funDelete(record._id)}
+                  onCancel={() => {}}
+                  okText="确认"
+                  cancelText="取消"
+                >
+                  <button type="button">删除</button>
+                </Popconfirm>
+              </span>
+            );
+          }
         }
       ],
-      datas: [],
-      detail: {},
-      changeCtx: () => {
-        this.setState({
-          testCtx: 2
-        });
-      }
+      datas: []
+      // detail: {},
+      // changeCtx: () => {
+      //   this.setState({
+      //     testCtx: 2
+      //   });
+      // }
     };
     // ref用例
     this.myRef = React.createRef();
@@ -124,27 +144,23 @@ class CompExampleContainer extends React.Component {
     //     cleanup();// 执行回调函数后消除挂载在全局上的回调函数（防止被暴露）
     //     if (fn) fn(null, data);// 自定义回调函数
     // };
-    document.addEventListener(
-      'click',
-      () => {
-        // jsonp(config.host+'/curd/jsonp',{
-        //     param:'callback',
-        //     name:'test'
-        // },function(error,data){
-        //     console.log(data);
-        // })
-        const callback = `jsonp${+new Date()}`;
-        window[callback] = function (d) {
-          console.log('jsonp-------->', d);
-          delete window[callback];
-          // alert(d);
-        };
-        const script = document.createElement('script');
-        script.src = `${config.host}/curd/jsonp?callback=${callback}`;
-        document.documentElement.appendChild(script);
-      },
-      false
-    );
+    
+    // jsonp(config.host+'/curd/jsonp',{
+    //     param:'callback',
+    //     name:'test'
+    // },function(error,data){
+    //     console.log(data);
+    // })
+    const callback = `jsonp${+new Date()}`;
+    window[callback] = (_d) => {
+      // window.console.log('jsonp-------->', d);
+      delete window[callback];
+      // alert(d);
+    };
+    const script = document.createElement('script');
+    script.setAttribute('class', 'jsonp');
+    script.src = `${config.host}/curd/jsonp?callback=${callback}`;
+    document.documentElement.appendChild(script);
   }
 
   test = () => {
@@ -153,7 +169,8 @@ class CompExampleContainer extends React.Component {
 
   ajaxList() {
     const _this = this;
-    const { pageSize, current } = this.state.page;
+    const { page } = this.state;
+    const { pageSize, current } = page;
     request
       .get('/curd/list', {
         params: {
@@ -175,7 +192,7 @@ class CompExampleContainer extends React.Component {
           }
         });
       })
-      .catch((err) => {
+      .catch((_err) => {
         // console.log(err);
       });
   }
@@ -203,14 +220,15 @@ class CompExampleContainer extends React.Component {
           }
         );
       })
-      .catch((err) => {
+      .catch((_err) => {
         // console.log(err);
       });
   }
 
   handleOk() {
     const _this = this;
-    this.props.form.validateFields((err, values) => {
+    const { form } = this.props;
+    form.validateFields((err, values) => {
       if (!err) {
         if (_this.state.detail._id) {
           values.id = _this.state.detail._id;
@@ -220,7 +238,7 @@ class CompExampleContainer extends React.Component {
               message.success(response.data.description);
               _this.ajaxList();
             })
-            .catch((err) => {
+            .catch((_err) => {
               // console.log(err);
             });
           this.setState(
@@ -228,7 +246,7 @@ class CompExampleContainer extends React.Component {
               visible: false
             },
             () => {
-              this.props.form.resetFields();
+              form.resetFields();
             }
           );
         } else {
@@ -238,7 +256,7 @@ class CompExampleContainer extends React.Component {
               message.success(response.data.description);
               _this.ajaxList();
             })
-            .catch((err) => {
+            .catch((_err) => {
               // console.log(err);
             });
           this.setState(
@@ -246,7 +264,7 @@ class CompExampleContainer extends React.Component {
               visible: false
             },
             () => {
-              this.props.form.resetFields();
+              form.resetFields();
             }
           );
         }
@@ -255,20 +273,21 @@ class CompExampleContainer extends React.Component {
   }
 
   handleCancel() {
+    const { form } = this.props;
     this.setState(
       {
         visible: false
       },
       () => {
-        this.props.form.resetFields();
+        form.resetFields();
       }
     );
   }
 
   ajaxAdd() {
     this.setState({
-      visible: true,
-      detail: {}
+      visible: true
+      // detail: {}
     });
   }
 
@@ -284,15 +303,18 @@ class CompExampleContainer extends React.Component {
           _this.ajaxList();
         }
       })
-      .catch((err) => {
+      .catch((_err) => {
         // console.log(err);
       });
   }
 
   pageChange(page) {
     this.setState(
-      (state, props) => (state.page.current = page.current),
-      function () {
+      (state, _props) => {
+        (state.page.current = page.current);
+        return state;
+      },
+      () => {
         this.ajaxList();
       }
     );
@@ -300,10 +322,20 @@ class CompExampleContainer extends React.Component {
 
   render() {
     const {
-      count, data, IncreaseCount, loadData, count1
+      form
+      // count, 
+      // data, 
+      // IncreaseCount, 
+      // loadData, 
+      // count1
     } = this.props;
-    const { columns, datas } = this.state;
-    const { getFieldDecorator } = this.props.form;
+    const { 
+      columns, 
+      datas, 
+      page, 
+      visible 
+    } = this.state;
+    const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -314,6 +346,12 @@ class CompExampleContainer extends React.Component {
         sm: { span: 20 }
       }
     };
+    const { 
+      ajaxAdd, 
+      pageChange, 
+      handleOk, 
+      handleCancel 
+    } = this;
     return (
       <div className="ExampleContainer">
         {/* <Test
@@ -336,27 +374,27 @@ class CompExampleContainer extends React.Component {
         <Ref ref={this.myRef}>222</Ref>
         <div style={{ marginTop: '20px' }}>
           <div className="btns">
-            <Button type="primary" onClick={this.ajaxAdd.bind(this)}>
+            <Button type="primary" onClick={ajaxAdd}>
               增加数据
             </Button>
           </div>
           <div className="lists">
             <Table
-              onChange={this.pageChange.bind(this)}
+              onChange={pageChange}
               columns={columns}
               dataSource={datas}
               pagination={{
-                total: +this.state.page.total,
-                current: +this.state.page.current
+                total: +page.total,
+                current: +page.current
               }}
             />
           </div>
         </div>
         <Modal
           title="新增数据"
-          visible={this.state.visible}
-          onOk={this.handleOk.bind(this)}
-          onCancel={this.handleCancel.bind(this)}
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
         >
           <Form className="first-form">
             <FormItem {...formItemLayout} label="name">
@@ -402,7 +440,7 @@ function mapDispatchToProps(dispatch) {
             data: response.data
           });
         })
-        .catch((err) => {
+        .catch((_err) => {
           // console.log(err);
         }));
     }

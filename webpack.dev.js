@@ -65,10 +65,10 @@ let config = {
         test: /\.js|jsx$/,
         exclude: /node_modules/,
         use: ['babel-loader', 
-          // {
-          //   loader: 'eslint-loader',
-          //   options: { fix: false }
-          // }
+          {
+            loader: 'eslint-loader',
+            options: { fix: false }
+          }
         ]
       },
       {

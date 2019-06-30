@@ -39,6 +39,10 @@ module.exports = {
     "react/jsx-filename-extension": 0,
     "no-trailing-spaces": 0,
     "no-unused-vars": 'off',
+    "import/order": 0,
+    "react/sort-comp": 0,
+    "no-underscore-dangle": 0,// 对象下划线属性名
+    "no-param-reassign": 0,
     "no-unused-vars": ["error", { 
       "argsIgnorePattern": "^_",
       "caughtErrors": "none"

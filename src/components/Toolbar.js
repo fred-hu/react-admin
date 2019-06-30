@@ -14,15 +14,16 @@ export default class Toolbar extends Component {
     };
 
     render() {
+      const { testCtx: testCtxC } = this.context;
       return (
       // 上下文订阅方式二
         <ThemeContext.Consumer>
           {({ changeCtx, testCtx }) => (
-            <div onClick={changeCtx}>
+            <button type="button" onClick={changeCtx}>
               {testCtx}
 -
-              {this.context.testCtx}
-            </div>
+              {testCtxC}
+            </button>
           )}
         </ThemeContext.Consumer>
       );

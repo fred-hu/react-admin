@@ -5,14 +5,21 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
 import {
-  HashRouter as Router, Route, Switch, Link, withRouter
+  // HashRouter as Router, 
+  // Route, 
+  // Switch, 
+  Link, 
+  withRouter
 } from 'react-router-dom';
-import { Breadcrumb, Alert } from 'antd';
-import 'styles/AppBreadcrumb.less';
-import { Navigation } from 'containers/Navigation';
+import { 
+  Breadcrumb
+  // Alert 
+} from 'antd';
+import '../styles/AppBreadcrumb.less';
+// import { Navigation } from 'containers/Navigation';
 
 const AppBreadcrumb = withRouter((props) => {
   const { location } = props;

@@ -1,29 +1,35 @@
-/*
- *
- * Navigation
- *
- */
-
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  HashRouter as Router,
-  Route,
-  Link,
-  withRouter
+  // HashRouter as Router,
+  // Route,
+  Link
+  // withRouter
 } from 'react-router-dom';
 import {
-  Menu, Icon, Switch, Layout
+  Menu, Icon, Layout
 } from 'antd';
-import 'styles/Navigation.less';
-import { deepCopy } from 'tools/toolFunctions.js';
+import PropTypes from 'prop-types';
+import '../styles/Navigation.less';
+// import { deepCopy } from 'tools/toolFunctions.js';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 // console.log(shuffle([1, 2, 3, 4, 5, 6, 7]));
 export class Navigation extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    menu: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])),
+    defaultSelectedKeys: PropTypes.oneOfType([PropTypes.any]),
+    defaultOpenKeys: PropTypes.oneOfType([PropTypes.any])
+  }
+
+  static defaultProps = {
+    menu: [],
+    defaultSelectedKeys: null,
+    defaultOpenKeys: null
+  }
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +45,7 @@ export class Navigation extends React.Component {
         resolve(4000);
       }, 4000);
     }));
-    a.then((data) => {
+    a.then((_data) => {
       // console.log(data);
     }).catch((err) => {
       window.console.log(err);
@@ -47,13 +53,13 @@ export class Navigation extends React.Component {
     require.ensure(
       [],
       (require) => {
-        const bundle = require('../test');
-        // console.log(bundle);
+        const bundle = require('../test.ts');
+        window.console.log(bundle);
       },
       'bundle222'
     );
     import('lodash')
-      .then((module) => {
+      .then((_module) => {
         // console(module.default);
       })
       .catch((err) => {
@@ -70,46 +76,45 @@ export class Navigation extends React.Component {
       // console.log('end');
       return 'the test is done';
     }
-    test().then((d) => {
+    test().then((_d) => {
       // console.log(d);
     });
   }
 
   componentDidMount() {
-    const _this = this;
-    window.onhashchange = function (e) {
-      matchMenu(_this.props.menu);
-    };
-
+    const that = this;
+    const { menu } = this.props;
     function matchMenu(data = [], parentId = []) {
       data.forEach((v, _i) => {
-        if (location.hash.replace('#', '') === v.link) {
+        if (window.location.hash.replace('#', '') === v.link) {
           // console.log(v);
           // console.log(parentId);
-          _this.props.matchMenu({
+          that.props.matchMenu({
             defaultSelectedKeys: [v.id],
             defaultOpenKeys: [...parentId]
           });
           return;
         }
-        v.children
-          && v.children.length
-          && matchMenu(v.children, parentId.concat(`${v.id}`));
+        if (v.children && v.children.length) {
+          matchMenu(v.children, parentId.concat(`${v.id}`));
+        }
       });
     }
-
-    matchMenu(this.props.menu);
+    window.onhashchange = () => {
+      matchMenu(menu);
+    };
+    matchMenu(menu);
   }
 
   toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
+    this.setState((prevState, _props) => ({
+      collapsed: !prevState.collapsed
+    }));
   };
 
   render() {
     function transMenu(data) {
-      transMenu.navigation = data.map((v, i) => {
+      transMenu.navigation = data.map((v, _i) => {
         // console.log(v.icon);
         if (v.children && v.children.length) {
           return (
@@ -138,23 +143,23 @@ export class Navigation extends React.Component {
       return transMenu.navigation;
     }
 
-    const { collapsed } = this.state;
+    const { mode, theme, collapsed } = this.state;
     const { menu, defaultSelectedKeys, defaultOpenKeys } = this.props;
     return (
       <div className="NavigationComponent">
-        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-          <a onClick={this.toggle} id="collapse">
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+          <button type="button" onClick={this.toggle} id="collapse">
             <Icon
               type={!collapsed ? 'double-left' : 'double-right'}
               theme="outlined"
             />
-          </a>
+          </button>
           <Menu
             key={`${defaultSelectedKeys}-${defaultOpenKeys}`}
             defaultSelectedKeys={defaultSelectedKeys}
             defaultOpenKeys={defaultOpenKeys}
-            mode={this.state.mode}
-            theme={this.state.theme}
+            mode={mode}
+            theme={theme}
           >
             {transMenu(menu)}
           </Menu>
