@@ -34,11 +34,10 @@ module.exports = {
   // 定义自己的规则
   "rules": {
     "comma-dangle": ["error", "never"], // 要求或禁止末尾逗号：不允许逗号
-    "indent": ["error", 2], // JavaScript代码强制使用一致的缩进：4格缩进
+    "indent": ["error", 2], // JavaScript代码强制使用一致的缩进：2格缩进
     "import/no-named-as-default": 0,
     "react/jsx-filename-extension": 0,
     "no-trailing-spaces": 0,
-    "no-unused-vars": 'off',
     "import/order": 0,
     "react/sort-comp": 0,
     "no-underscore-dangle": 0,// 对象下划线属性名
