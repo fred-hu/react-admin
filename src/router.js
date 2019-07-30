@@ -3,10 +3,7 @@ import { hot } from 'react-hot-loader';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  Redirect
+  HashRouter as Router, Route, Switch, Redirect 
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBreadcrumb from './containers/AppBreadcrumb';
@@ -17,11 +14,11 @@ import Navigation from './containers/Navigation';
 export class AppRouter extends React.Component {
   static propTypes = {
     menu: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]))
-  }
+  };
 
   static defaultProps = {
     menu: []
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -30,61 +27,55 @@ export class AppRouter extends React.Component {
 
   componentWillMount() {}
 
-    trans = (data = [], obj = {}) => {
-      data.forEach((v) => {
-        /* eslint no-param-reassign: ["error", { "props": false }] */
-        obj[v.link] = v.linkName;
-        if (v.children && v.children.length) {
-          this.trans(v.children, obj);
-        }
-      });
-      return obj;
-    };
+  trans = (data = [], obj = {}) => {
+    data.forEach((v) => {
+      /* eslint no-param-reassign: ["error", { "props": false }] */
+      obj[v.link] = v.linkName;
+      if (v.children && v.children.length) {
+        this.trans(v.children, obj);
+      }
+    });
+    return obj;
+  };
 
-    render() {
-      const { menu } = this.props;
-      const breadcrumbNameMap = this.trans(menu) || {};
+  render() {
+    const { menu } = this.props;
+    const breadcrumbNameMap = this.trans(menu) || {};
 
-      return (
-        <Router>
-          <div id="app-container">
-            <div id="app-header">
-              <TopBar />
-            </div>
-            <div id="app-main">
-              <div
-                id="app-main-slider"
-              >
-                <Navigation />
-              </div>
-              <div
-                id="app-main-content"
-              >
-                <AppBreadcrumb
-                  breadcrumbNameMap={breadcrumbNameMap}
-                />
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    render={props => (
-                      <Redirect
-                        to={{
-                          pathname: '/one',
-                          state: { from: props.location }
-                        }}
-                      />
-                    )}
-                  />
-                  <Route path="/one" exact component={Home} />
-                </Switch>
-              </div>
-            </div>
-            <div id="app-footer" />
+    return (
+      <Router>
+        <div id="app-container">
+          <div id="app-header">
+            <TopBar />
           </div>
-        </Router>
-      );
-    }
+          <div id="app-main">
+            <div id="app-main-slider">
+              <Navigation />
+            </div>
+            <div id="app-main-content">
+              <AppBreadcrumb breadcrumbNameMap={breadcrumbNameMap} />
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <Redirect
+                      to={{
+                        pathname: '/one',
+                        state: { from: props.location }
+                      }}
+                    />
+                  )}
+                />
+                <Route path="/one" exact component={Home} />
+              </Switch>
+            </div>
+          </div>
+          <div id="app-footer" />
+        </div>
+      </Router>
+    );
+  }
 }
 function mapStateToProps(state) {
   return {

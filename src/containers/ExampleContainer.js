@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -24,7 +25,6 @@ import ThemeContext from '../contexts/test';
 import Ref from '../components/ref';
 
 import '../styles/ExampleContainer.less';
-
 const FormItem = Form.Item;
 // class Test extends React.Component {
 //   constructor(props) {
@@ -47,7 +47,7 @@ class CompExampleContainer extends React.Component {
     IncreaseCount: PropTypes.oneOfType([PropTypes.any]),
     loadData: PropTypes.oneOfType([PropTypes.any]),
     count1: PropTypes.oneOfType([PropTypes.any])
-  }
+  };
 
   static defaultProps = {
     form: null,
@@ -56,7 +56,7 @@ class CompExampleContainer extends React.Component {
     IncreaseCount: null,
     loadData: null,
     count1: null
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -92,24 +92,21 @@ class CompExampleContainer extends React.Component {
           key: 'operation',
           width: 200,
           render: (text, record) => {
-            const funDelete = this.delete.bind(this);
+            const _this = this;
             return (
               <span>
-                <button 
-                  type="button"
-                  onClick={this.getDetail.bind(this, record._id)}
-                >
+                <Button type="button" onClick={this.getDetail.bind(this, record._id)}>
                   编辑
-                </button>
+                </Button>
                 <Divider type="vertical" />
                 <Popconfirm
-                  title="确认删除?"
-                  onConfirm={funDelete(record._id)}
+                  title="Are you sure delete this task?"
+                  onConfirm={_this.deleteOpt.bind(_this, record._id)}
                   onCancel={() => {}}
-                  okText="确认"
-                  cancelText="取消"
+                  okText="Yes"
+                  cancelText="No"
                 >
-                  <button type="button">删除</button>
+                  <Button type="button">删除</Button>
                 </Popconfirm>
               </span>
             );
@@ -126,6 +123,10 @@ class CompExampleContainer extends React.Component {
     };
     // ref用例
     this.myRef = React.createRef();
+    this.ajaxAdd = this.ajaxAdd.bind(this);
+    this.pageChange = this.pageChange.bind(this);
+    this.handleOk = this.handleOk.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentWillMount() {
@@ -144,7 +145,7 @@ class CompExampleContainer extends React.Component {
     //     cleanup();// 执行回调函数后消除挂载在全局上的回调函数（防止被暴露）
     //     if (fn) fn(null, data);// 自定义回调函数
     // };
-    
+
     // jsonp(config.host+'/curd/jsonp',{
     //     param:'callback',
     //     name:'test'
@@ -152,7 +153,7 @@ class CompExampleContainer extends React.Component {
     //     console.log(data);
     // })
     const callback = `jsonp${+new Date()}`;
-    window[callback] = (_d) => {
+    window[callback] = _d => {
       // window.console.log('jsonp-------->', d);
       delete window[callback];
       // alert(d);
@@ -178,9 +179,9 @@ class CompExampleContainer extends React.Component {
           current
         }
       })
-      .then((response) => {
+      .then(response => {
         const { data } = response;
-        data.data.forEach((v) => {
+        data.data.forEach(v => {
           v.key = v._id;
         });
         _this.setState({
@@ -192,7 +193,7 @@ class CompExampleContainer extends React.Component {
           }
         });
       })
-      .catch((_err) => {
+      .catch(_err => {
         // console.log(err);
       });
   }
@@ -205,7 +206,7 @@ class CompExampleContainer extends React.Component {
           id
         }
       })
-      .then((response) => {
+      .then(response => {
         _this.setState(
           {
             detail: response.data.data,
@@ -220,7 +221,7 @@ class CompExampleContainer extends React.Component {
           }
         );
       })
-      .catch((_err) => {
+      .catch(_err => {
         // console.log(err);
       });
   }
@@ -230,15 +231,15 @@ class CompExampleContainer extends React.Component {
     const { form } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
-        if (_this.state.detail._id) {
+        if (_this.state.detail && _this.state.detail._id) {
           values.id = _this.state.detail._id;
           request
             .post('/curd/update', values)
-            .then((response) => {
+            .then(response => {
               message.success(response.data.description);
               _this.ajaxList();
             })
-            .catch((_err) => {
+            .catch(_err => {
               // console.log(err);
             });
           this.setState(
@@ -252,11 +253,11 @@ class CompExampleContainer extends React.Component {
         } else {
           request
             .post('/curd/add', values)
-            .then((response) => {
+            .then(response => {
               message.success(response.data.description);
               _this.ajaxList();
             })
-            .catch((_err) => {
+            .catch(_err => {
               // console.log(err);
             });
           this.setState(
@@ -291,19 +292,19 @@ class CompExampleContainer extends React.Component {
     });
   }
 
-  delete(id) {
+  deleteOpt(id) {
     const _this = this;
     request
       .post('/curd/delete', {
         id
       })
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           message.success(response.data.description);
           _this.ajaxList();
         }
       })
-      .catch((_err) => {
+      .catch(_err => {
         // console.log(err);
       });
   }
@@ -311,7 +312,7 @@ class CompExampleContainer extends React.Component {
   pageChange(page) {
     this.setState(
       (state, _props) => {
-        (state.page.current = page.current);
+        state.page.current = page.current;
         return state;
       },
       () => {
@@ -323,18 +324,13 @@ class CompExampleContainer extends React.Component {
   render() {
     const {
       form
-      // count, 
-      // data, 
-      // IncreaseCount, 
-      // loadData, 
+      // count,
+      // data,
+      // IncreaseCount,
+      // loadData,
       // count1
     } = this.props;
-    const { 
-      columns, 
-      datas, 
-      page, 
-      visible 
-    } = this.state;
+    const { columns, datas, page, visible } = this.state;
     const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: {
@@ -346,12 +342,7 @@ class CompExampleContainer extends React.Component {
         sm: { span: 20 }
       }
     };
-    const { 
-      ajaxAdd, 
-      pageChange, 
-      handleOk, 
-      handleCancel 
-    } = this;
+    const { ajaxAdd, pageChange, handleOk, handleCancel } = this;
     return (
       <div className="ExampleContainer">
         {/* <Test
@@ -390,12 +381,7 @@ class CompExampleContainer extends React.Component {
             />
           </div>
         </div>
-        <Modal
-          title="新增数据"
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
+        <Modal title="新增数据" visible={visible} onOk={handleOk} onCancel={handleCancel}>
           <Form className="first-form">
             <FormItem {...formItemLayout} label="name">
               {getFieldDecorator('name', {
@@ -432,17 +418,19 @@ function mapDispatchToProps(dispatch) {
       });
     },
     loadData: () => {
-      dispatch(() => axios
-        .get(config.staticlist)
-        .then((response) => {
-          dispatch({
-            type: 'AJAX',
-            data: response.data
-          });
-        })
-        .catch((_err) => {
-          // console.log(err);
-        }));
+      dispatch(() =>
+        axios
+          .get(config.staticlist)
+          .then(response => {
+            dispatch({
+              type: 'AJAX',
+              data: response.data
+            });
+          })
+          .catch(_err => {
+            // console.log(err);
+          })
+      );
     }
   };
 }

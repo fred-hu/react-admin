@@ -19,11 +19,11 @@ module.exports = {
       return '请输入容器名称';
     }
   }, {
-      type: 'list',
-      name: 'component',
-      message: '选择容器组件类型:',
-      default: 'Component',
-      choices: () => ['Component','Component With Typescript']
+    type: 'list',
+    name: 'component',
+    message: '选择容器组件类型:',
+    default: 'Component',
+    choices: () => ['Component', 'Component With Typescript']
   }, {
     type: 'confirm',
     name: 'wantHeaders',
@@ -32,24 +32,24 @@ module.exports = {
   }],
   actions: (data) => {
     // Generate index.js and index.test.js
-      let componentTemplate = '';
-      let componentPath = ['../../src/containers/{{properCase name}}.js','../../src/containers/{{properCase name}}.tsx'];
-      switch (data.component) {
-          case 'Component': {
-              componentTemplate = './container/index.js.hbs';
-              componentPath = componentPath[0];
-              break;
-          }
-          case 'Component With Typescript': {
-              componentTemplate = './container/index.ts.hbs';
-              componentPath = componentPath[1];
-              break;
-          }
-          default: {
-              componentTemplate = './container/index.js.hbs';
-              componentPath = componentPath[0];
-          }
-      }
+    let componentTemplate = '';
+    let componentPath = ['../../src/containers/{{properCase name}}.js', '../../src/containers/{{properCase name}}.tsx'];
+    switch (data.component) {
+    case 'Component': {
+      componentTemplate = './container/index.js.hbs';
+      componentPath = componentPath[0];
+      break;
+    }
+    case 'Component With Typescript': {
+      componentTemplate = './container/index.ts.hbs';
+      componentPath = componentPath[1];
+      break;
+    }
+    default: {
+      componentTemplate = './container/index.js.hbs';
+      componentPath = componentPath[0];
+    }
+    }
     const actions = [{
       type: 'add',
       path: componentPath,
@@ -61,6 +61,6 @@ module.exports = {
       templateFile: './container/less.hbs',
       abortOnFail: true
     }];
-      return actions;
+    return actions;
   }
 };

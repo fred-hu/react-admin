@@ -1,12 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+
 function reducerExists(comp) {
-    try {
-        fs.accessSync(path.join(__dirname, `../../../src/reducers/${comp}.js`), fs.F_OK);
-        return true;
-    } catch (e) {
-        return false;
-    }
+  try {
+    fs.accessSync(path.join(__dirname, `../../../src/reducers/${comp}.js`), fs.F_OK);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 module.exports = {
   description: '添加reducer',
@@ -35,13 +36,13 @@ module.exports = {
     let componentTemplate = '';
 
     switch (data.type) {
-        case 'reducer': {
-            componentTemplate = './reducers/reducer.js.hbs';
-            break;
-        }
-      default: {
-        componentTemplate = './reducers/reducer.js.hbs';
-      }
+    case 'reducer': {
+      componentTemplate = './reducers/reducer.js.hbs';
+      break;
+    }
+    default: {
+      componentTemplate = './reducers/reducer.js.hbs';
+    }
     }
 
     const actions = [{

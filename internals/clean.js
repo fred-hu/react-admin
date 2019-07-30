@@ -3,9 +3,10 @@
  */
 require('shelljs/global');
 const addCheckMark = require('./helpers/checkmark.js');
+
 if (!which('git')) {
-    echo('对不起,此脚本需要git');
-    exit(1);
+  echo('对不起,此脚本需要git');
+  exit(1);
 }
 process.stdout.write('开始清理...');
 // 清理src和docs/

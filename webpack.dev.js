@@ -44,13 +44,13 @@ let config = {
     alias: {
       'react-dom': '@hot-loader/react-dom',
       '@': './src',
-      'static': path.resolve(__dirname, './src/static'),
-      'tools': path.resolve(__dirname, './src/tools'),
-      'styles': path.resolve(__dirname, './src/styles'),
-      'components': path.resolve(__dirname, './src/components'),
-      'containers': path.resolve(__dirname, './src/containers'),
-      'reducers': path.resolve(__dirname, './src/reducers'),
-      'contexts': path.resolve(__dirname, './src/contexts')
+      static: path.resolve(__dirname, './src/static'),
+      tools: path.resolve(__dirname, './src/tools'),
+      styles: path.resolve(__dirname, './src/styles'),
+      components: path.resolve(__dirname, './src/components'),
+      containers: path.resolve(__dirname, './src/containers'),
+      reducers: path.resolve(__dirname, './src/reducers'),
+      contexts: path.resolve(__dirname, './src/contexts')
     },
     extensions: ['.js', '.json', '.tsx', '.ts', 'jsx']
   },
@@ -64,7 +64,8 @@ let config = {
       {
         test: /\.js|jsx$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 
+        use: [
+          'babel-loader',
           {
             loader: 'eslint-loader',
             options: { fix: false }
@@ -91,7 +92,7 @@ let config = {
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader',{ loader: 'postcss-loader' }, 'sass-loader']
+        use: ['style-loader', 'css-loader', { loader: 'postcss-loader' }, 'sass-loader']
       },
       {
         test: /\.less$/,
